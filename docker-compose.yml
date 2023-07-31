@@ -1,0 +1,46 @@
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: testrabbitmq
+        networks:
+          - network1
+    flask:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        image: testapp:v1
+        container_name: testapp
+        ports:
+          - '80:80'
+        networks:
+          - network1
+        depends_on:
+          - rabbitmq
+          - db
+        volumes:
+          - /var/docker-data/test-app-request-manager/static/images/after-hide:/app/static/images/afterHide
+          - /var/docker-data/test-app-request-manager/static/images/before-hide:/app/static/images/beforeHide
+          - /var/docker-data/test-app-request-manager/static/sounds/before-hide:/app/static/sounds/beforeHide
+          - /var/docker-data/test-app-request-manager/static/sounds/after-hide:/app/static/sounds/afterHide
+    db:
+        image: postgres
+        restart: always
+        container_name: testpostgres
+        ports:
+          - '5434:5432'
+        environment:
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: a
+           POSTGRES_DB: test_app_request_manager
+        volumes:
+          - db:/var/lib/postgresql/data
+          - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+          - network1
+networks:
+  network1:
+    name: testapp
+    external: true
+volumes:
+  db:
+    driver: local

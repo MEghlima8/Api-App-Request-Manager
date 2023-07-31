@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Confirmation Email</title>
+
+<!-- Styles and Icons -->
+<link rel="stylesheet" href="../static/fonts/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="../static/css/bootstrap.gallery.min.css">
+
+
+<style>
+body {
+	font-family: 'Varela Round', sans-serif;
+}
+.modal-confirm {		
+	color: #636363;
+	width: 400px;
+	font-size: 17px;
+}
+.modal-confirm .modal-content {
+    background: #daebca;
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -15px;
+}
+
+.modal-confirm .icon-box {
+	color: #fff;		
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: -70px;
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	z-index: 9;
+	background: #82ce34;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="icon-box">
+                <i class="zmdi zmdi-assignment-check zmdi-hc-4x"></i>
+            </div>				
+            <h4 class="modal-title w-100">تایید حساب کاربری</h4>	
+        </div>
+        <div class="modal-body">
+
+			<!-- Confirm email message -->
+            <p class="text-center">حساب کاربری شما با موفقیت تایید شد. برای ورود به حساب خود <a href="/"> اینجا </a> بزنید.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+.progress-bar-upload-file {
+  width: 300px;
+  height: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+.progress-upload-file {
+  width: 0;
+  height: 100%;
+  background-color: #4CAF50;
+}
+.message-upload-file {
+  font-weight: bold;
+  margin-top: 10px;
+}

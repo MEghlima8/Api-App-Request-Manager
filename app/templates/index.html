@@ -1,0 +1,1547 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تست اپ</title>
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <!-- Sign in dependencies -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core Css -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom Css -->
+    <link href="../static/css/style.css" rel="stylesheet">    
+    
+    <!-- My Css -->
+    <link href="../static/css/app.css" rel="stylesheet"/>
+
+    <!-- Sign up dependencies -->
+    <!-- Waves Effect Css -->
+    <link href="../static/css/waves.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="../static/css/animate.css" rel="stylesheet" />
+
+    <!-- Dashboard dependencies -->
+    <!-- Bootstrap RTL Css -->
+    <link href="../static/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <!-- Custorm RTL Css -->
+    <link href="../static/css/style-rtl.css" rel="stylesheet">
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../static/css/all-themes.css" rel="stylesheet" />
+
+
+
+</head>
+<body>
+
+    <div id="app">
+        
+        <!-- Signin panel -->
+        <section v-if="panel == 'sign-in'" >
+
+            <div class="login-page login-box">
+                <div class="card">
+                    <div class="body">
+                        <form>
+                            <div class="msg">برای شروع وارد حساب خود شوید</div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input v-model="username" type="text" class="form-control" name="username" placeholder="نام کاربری" required autofocus>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input v-model="password" type="password" class="form-control" name="password" placeholder="رمز عبور" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8 p-t-5">
+                                </div>
+                                <div class="col-xs-4">
+                                    <button @click.prevent="signIn" class="btn btn-block bg-pink waves-effect" type="submit">ورود</button>
+                                </div>
+                            </div>                    
+                            <div @click.prevent="change_panel('sign-up',null)" class="row m-t-15 m-b--20">
+                                <div class="col-xs-6">
+                                    <button><a >همین حالا ثبت نام کنید</a></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- # Signin panel -->
+
+
+        <!-- Signup panel -->
+        <section v-if="panel == 'sign-up'">
+            <div class="login-page login-box">
+                <div class="card">
+                    <div class="body">
+                        <form>
+                            <div class="msg">برای خود یک حساب بسازید</div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input v-model="username" type="text" class="form-control" name="username" placeholder="نام کاربری" required autofocus>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">email</i>
+                                </span>
+                                <div class="form-line">
+                                    <input v-model="email" type="email" class="form-control" name="email" placeholder="آدرس ایمیل" required>
+                                </div>
+                            </div>        
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input v-model="password" type="password" class="form-control" name="password" placeholder="رمز عبور" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8 p-t-5">
+                                </div>
+                                <div class="col-xs-4">
+                                    <button @click.prevent="signUp" class="btn btn-block bg-pink waves-effect" type="submit">ثبت نام</button>
+                                </div>
+                            </div>                    
+                            <div @click.prevent="change_panel('sign-in',null)" class="row m-t-15 m-b--20">
+                                <div class="col-xs-6">
+                                    <button><a >از قبل عضو شده اید؟</a></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- # Signup panel -->
+            
+        <!-- Else Sign-in and Sign-up and Admin panel -->        
+        <section v-if="panel !== 'sign-in' && panel !== 'sign-up' && panel !== 'admin'" class="theme-teal" >
+
+            <!-- Top Bar -->
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                        <a href="javascript:void(0);" class="bars"></a>
+                        <a class="navbar-brand" href="index.html"></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- #Top Bar -->
+            <section>
+                <!-- Right Sidebar -->
+                <aside id="leftsidebar" class="sidebar">
+                    <!-- Menu -->
+                    <div class="menu">
+                        <ul class="list">
+                            <li class="header">ناوبری اصلی</li>
+                            <li>
+                                <a style="background-color:darkcyan;" @click.prevent="goToDashboard" href="">
+                                    <i style="color: darkgray" class="material-icons">home</i>
+                                    <span style="color: aliceblue">صفحه اصلی</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a style="background-color:darkcyan;" href="javascript:void(0);" class="toggled">
+                                    <i style="color: darkgray" class="material-icons">widgets</i>
+                                    <span style="color:aliceblue;">عملیات جمع</span>
+                                </a>
+                                <ul class="ml-menu" style="display: block;">
+                                    <li>
+                                        <a style="background-color:beige" @click.prevent="change_panel('add-calc',null)" href="" >
+                                            <span>درخواست جدید</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a style="background-color:beige" @click.prevent="resAddCalc" href="" >
+                                            <span>نتایج همه درخواستها</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a style="background-color:darkcyan;" href="javascript:void(0);" class="toggled">
+                                    <i style="color: darkgray" class="material-icons">widgets</i>
+                                    <span style="color:aliceblue;">استگانوگرافی متن</span>
+                                </a>
+                                <ul class="ml-menu " style="display: block;">
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>پنهان کردن در تصویر</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="change_panel('steg-newreq-img',nul)"  href="">درخواست جدید</a>
+                                            </li>
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="resStegImg"  href="">نتایج همه درخواستها</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li >
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>استخراج از تصویر</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="change_panel('extr-newreq-steg-img',null)"  href="">درخواست جدید</a>
+                                            </li>
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="resExtrStegImg"  href="">نتایج همه درخواستها</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>پنهان کردن در صدا</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="change_panel('steg-newreq-audio',null)"  href="">درخواست جدید</a>
+                                            </li>
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="resStegAudio" href="">نتایج همه درخواستها</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>استخراج از صدا</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="change_panel('extr-newreq-steg-audio',null)"  href="">درخواست جدید</a>
+                                            </li>
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="resExtrStegAudio" href="">نتایج همه درخواستها</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- #Menu -->
+
+                </aside>
+                <!-- #END# Left Sidebar -->
+                <!-- #END# Right Sidebar -->
+            </section>
+
+
+            <!-- Dahboard panel -->
+            <section v-if="panel == 'dashboard'">
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="block-header">
+                            <h2>درخواست ها</h2>
+                        </div>
+            
+                        <!-- Widgets -->
+                        <div class="row clearfix">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-pink hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">density_small</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">کل درخواست ها</div>
+                                        <div class="number count-to" >${ all_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-cyan hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">pending</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">در صف</div>
+                                        <div class="number count-to">${ inQueue_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-orange hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">hourglass_bottom</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">در حال انجام</div>
+                                        <div class="number count-to">${ processing_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-light-green hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">done_outline</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">تکمیل شده</div>
+                                        <div class="number count-to">${ completed_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Widgets -->
+                        <div class="row clearfix">
+                            <!-- Answered Tickets -->
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های استگانوگرافی در تصویر</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_img_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های استگانوگرافی در صدا</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_audio_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های عملیات جمع</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_add_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- #END# Answered Tickets -->
+            
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <!-- # Dahboard panel -->
+
+
+            <!--  Add-calc panel  -->
+            <section v-if="panel=='add-calc'" class="content">
+                <!-- Inline Layout | With Floating Label -->
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    جمع دو عدد 
+                                </h2>
+                            </div>
+                            <div class="body">
+                                <form>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input v-model="CalcNum1" type="number" class="form-control">
+                                                    <label class="form-label"><br>عدد اول</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input v-model="CalcNum2" type="number" class="form-control">
+                                                    <label class="form-label"><br>عدد دوم</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <button @click.prevent="sendAddCalcReq" type="button" class="btn btn-primary btn-lg m-l-15 waves-effect">ارسال درخواست</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>            
+            <!-- # Add-Calc panel -->
+
+
+
+
+            <!--  Res-Add-calc panel  -->
+            <section v-if="panel=='res-add-calc'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عدد اول</th>
+                                                    <th>عدد دوم</th>
+                                                    <th>نتیجه</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[2]["num1"] }$</td>
+                                                    <td>${ req[2]["num2"] }$</td>
+                                                    <td>${ req[3]["result"] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[2]["num1"] }$</td>
+                                                    <td>${ req[2]["num2"] }$</td>
+                                                    <td>در حال محاسبه</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[2]["num1"] }$</td>
+                                                    <td>${ req[2]["num2"] }$</td>
+                                                    <td>منتظر</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>        
+            <!-- # Res-Add-calc panel  -->
+
+
+            <!-- extr-newreq-steg-audio panel  -->
+            <section v-if="panel=='extr-newreq-steg-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>
+                                        <b>درخواست جدید استخراج متن از صدا</b>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                        <div class="dz-message">
+                                            <div class="drag-icon-cph">
+                                                <i class="material-icons">touch_app</i>
+                                            </div>
+                                            <h3>فایل صوتی خود را به اینجا منتقل کنید</h3>
+                                        </div>
+                                        <div class="fallback">
+                                            <input @change="handleExtrNewAudio" id="fileInput" name="file" type="file" accept="audio/*" multiple />
+                                            <div class="progress-bar-upload-file">
+                                                <div class="progress-upload-file" :style="{ width: progress + '%' }"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button @click.prevent="extrNewReqAudio" style="margin-right:45%; margin-bottom:5%;" type="button" class="btn btn-primary m-t-15 waves-effect">ارسال درخواست</button>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div>
+            </section>
+            <!-- # extr-newreq-steg-audio panel  -->
+
+
+            <!-- res-extr-audio panel  -->
+            <section v-if="panel=='res-extr-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>صوت ورودی</th>                                            
+                                                    <th>متن خروجی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td>${ req[3]["result"]["url"]["secret text"] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td>منتظر</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>        
+            <!-- # res-extr-audio panel  -->
+
+
+
+            <!--  res-steg-audio panel  -->
+            <section v-if="panel=='res-steg-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>متن ورودی</th>                                            
+                                                    <th>صوت ورودی</th>                                            
+                                                    <th>صوت خروجی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td> <a :href="req[3]['result']['url']" target="_blank">پخش</a> </td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
+                                                    <td>منتظر</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>        
+            <!-- # res-steg-audio panel  -->
+
+
+
+            <!-- steg-newreq-audio panel  -->
+            <section v-if="panel=='steg-newreq-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>
+                                        <b>درخواست جدید پنهان کردن متن در صدا</b>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <b>متن پیام</b>
+                                            <div class="input-group ">
+                                                <div class="form-line">
+                                                    <input v-model="msg_newreq_audio" type="text" class="form-control" placeholder="متن">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="body">
+                                    <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                        <div class="dz-message">
+                                            <div class="drag-icon-cph">
+                                                <i class="material-icons">touch_app</i>
+                                            </div>
+                                            <h3>فایل صوتی خود را به اینجا منتقل کنید</h3>
+                                        </div>
+                                        <div class="fallback">
+                                            <input @change="handleNewReqAudio" name="file" id="fileInput" type="file" accept="audio/*" multiple />
+                                            <div class="progress-bar-upload-file">
+                                                <div class="progress-upload-file" :style="{ width: progress + '%' }"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button @click.prevent="steg_new_req_audio" style="margin-right:45%; margin-bottom:5%;" type="button" class="btn btn-primary m-t-15 waves-effect">ارسال درخواست</button>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div>
+            </section>            
+            <!-- # steg-newreq-audio panel  -->
+
+
+
+            <!-- extr-newreq-steg-img panel  -->
+            <section v-if="panel=='extr-newreq-steg-img'" class="content">
+                <div class="container-fluid">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>
+                                        <b>درخواست جدید استخراج متن از تصویر</b>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                        <div class="dz-message">
+                                            <div class="drag-icon-cph">
+                                                <i class="material-icons">touch_app</i>
+                                            </div>
+                                            <h3>تصویر خود را به اینجا منتقل کنید</h3>
+                                        </div>
+                                        <div class="fallback">
+                                            <input @change="handleExtrStegNewImg" id="fileInput" name="file" type="file" accept="image/*" multiple />
+                                            <div class="progress-bar-upload-file">
+                                                <div class="progress-upload-file" :style="{ width: progress + '%' }"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button @click.prevent="extrStegImg" style="margin-right:45%; margin-bottom:5%;" type="button" class="btn btn-primary m-t-15 waves-effect">ارسال درخواست</button>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div>
+            </section>
+            <!-- # extr-newreq-steg-img panel  -->
+
+
+
+            <!-- res-extr-steg-img panel  -->
+            <section v-if="panel=='res-extr-steg-img'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عکس ورودی</th>                                            
+                                                    <th>متن خروجی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>${ req[3]["result"]["extracted text"] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>منتظر</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>         
+            <!-- # res-extr-steg-img panel  -->
+
+
+            <!-- res-steg-img panel  -->
+            <section v-if="panel=='res-steg-img'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>متن</th>
+                                                    <th>عکس ورودی</th>
+                                                    <th>عکس خروجی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td> <a :href="req[3]['result']['url']" target="_blank">نمایش</a> </td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[4] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[2]["text"] }$</td>
+                                                    <td> <a :href="req[2]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>منتظر</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>        
+            <!-- # res-steg-img panel  -->            
+
+
+            <!-- steg-newreq-img panel  -->            
+            <section v-if="panel=='steg-newreq-img'" class="content">
+                <div class="container-fluid">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <!-- Color Pickers -->
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>
+                                        <b>درخواست جدید پنهان کردن متن در تصویر</b>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <b>متن پیام</b>
+                                            <div class="input-group ">
+                                                <div class="form-line">
+                                                    <input v-model="msg_steg_newreq_img" type="text" class="form-control" placeholder="متن ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="body">
+                                    <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                        <div class="dz-message">
+                                            <div class="drag-icon-cph">
+                                                <i class="material-icons">touch_app</i>
+                                            </div>
+                                            <h3>تصویر خود را به اینجا منتقل کنید</h3>
+                                        </div>
+                                        <div class="fallback">
+                                            <input name="file" type="file" id="fileInput" accept="image/*" @change="handleStegNewReqImg" />
+                                            <div class="progress-bar-upload-file">
+                                                <div class="progress-upload-file" :style="{ width: progress + '%' }"></div>
+                                            </div>
+                                    </form>
+                                    <button @click.prevent="stegNewReqImg" style="margin-right:45%; margin-bottom:5%;" type="button" class="btn btn-primary m-t-15 waves-effect">ارسال درخواست</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>                    
+            <!-- # steg-newreq-img panel  -->      
+         
+        </section>
+    <!-- # Else Sign-in and Sign-up and Admin panel -->        
+
+
+
+
+
+<!---------------------------------- Admin Panel  ---------------------------------------->
+
+
+
+
+        <!-- Admin panel -->        
+        <section v-if="panel == 'admin'" class="theme-teal" >
+
+            <!-- Top Bar -->
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                        <a href="javascript:void(0);" class="bars"></a>
+                        <a class="navbar-brand" href="#"></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- #Top Bar -->
+            <section>
+                <!-- Right Sidebar -->
+                <aside id="leftsidebar" class="sidebar">
+                    <!-- Menu -->
+                    <div class="menu">
+                        <ul class="list">
+                            <li class="header">ناوبری اصلی</li>
+                            <li>
+                                <a style="background-color:darkcyan;" @click.prevent="change_panel('admin','admin-dashboard')" href="">
+                                    <i style="color: darkgray" class="material-icons">home</i>
+                                    <span style="color:aliceblue;">پنل اصلی</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a style="background-color:darkcyan;" href="javascript:void(0);" class="toggled">
+                                    <i style="color: darkgray" class="material-icons">widgets</i>
+                                    <span style="color:aliceblue;">عملیات جمع</span>
+                                </a>
+                                <ul class="ml-menu" style="display: block;">
+                                    <li>
+                                        <a style="background-color:beige" @click.prevent="admin_resAddCalc" href="#" >
+                                            <span>نتایج همه کاربران</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a style="background-color:darkcyan;" href="javascript:void(0);" class="toggled">
+                                    <i style="color: darkgray" class="material-icons">widgets</i>
+                                    <span style="color:aliceblue;">استگانوگرافی متن</span>
+                                </a>
+                                <ul class="ml-menu " style="display: block;">
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>پنهان کردن در تصویر</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="admin_resStegImg"  href="">نتایج همه کاربران</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li >
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>استخراج از تصویر</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="admin_resExtrStegImg"  href="">نتایج همه کاربران</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>پنهان کردن در صدا</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="admin_resStegAudio" href="">نتایج همه کاربران</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a style="background-color:gainsboro;" href="javascript:void(0);" class="toggled">
+                                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                            <span><b>استخراج از صدا</b></span>
+                                        </a>
+                                        <ul class="ml-menu" style="display: block;">
+                                            <li>
+                                                <a style="background-color:beige" @click.prevent="admin_resExtrStegAudio" href="">نتایج همه کاربران</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a style="background-color:darkcyan;" href="javascript:void(0);" class="toggled">
+                                    <i style="color: darkgray" class="material-icons">widgets</i>
+                                    <span style="color:aliceblue;">اطلاعات کاربران</span>
+                                </a>
+                                <ul class="ml-menu" style="display: block;">
+                                    <li>
+                                        <a style="background-color:beige" @click.prevent="admin_usersInfo" href="#" >
+                                            <span>نمایش اطلاعات همه کاربران</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <!-- #Menu -->
+
+                </aside>
+
+                <!-- #END# Right Sidebar -->
+            </section>
+
+
+            <!-- Admin Dashboard panel -->
+            <section v-if="admin_panel == 'admin-dashboard'">
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="block-header">
+                            <h2>درخواست ها</h2>
+                        </div>
+            
+                        <!-- Widgets -->
+                        <div class="row clearfix">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-pink hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">density_small</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">کل درخواست ها</div>
+                                        <div class="number count-to" >${ all_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-cyan hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">pending</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">در صف</div>
+                                        <div class="number count-to">${ inQueue_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-orange hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">hourglass_bottom</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">در حال انجام</div>
+                                        <div class="number count-to">${ processing_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="info-box bg-light-green hover-expand-effect">
+                                    <div class="icon">
+                                        <i class="material-symbols-outlined">done_outline</i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="text">تکمیل شده</div>
+                                        <div class="number count-to">${ completed_requests }$</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Widgets -->
+                        <div class="row clearfix">
+                            <!-- Answered Tickets -->
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های استگانوگرافی در تصویر</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_img_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های استگانوگرافی در صدا</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_audio_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="card">
+                                    <div class="body bg-teal">
+                                        <div class="font-bold m-b--35">درخواست های عملیات جمع</div>
+                                        <ul class="dashboard-stat-list">
+                                            <li>
+                                                <b>${ all_add_requests }$</b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- #END# Answered Tickets -->
+            
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <!-- # Dahboard panel -->
+
+            <!--  admin-Res-Add-calc panel  -->
+            <section v-if="admin_panel=='admin-res-add-calc'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عدد اول</th>
+                                                    <th>عدد دوم</th>
+                                                    <th>نتیجه</th>
+                                                    <th>آیپی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[3]["num1"] }$</td>
+                                                    <td>${ req[3]["num2"] }$</td>
+                                                    <td>${ req[4]["result"] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[3]["num1"] }$</td>
+                                                    <td>${ req[3]["num2"] }$</td>
+                                                    <td>در حال محاسبه</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[3]["num1"] }$</td>
+                                                    <td>${ req[3]["num2"] }$</td>
+                                                    <td>منتظر</td>
+                                                    <td>${ req[4] }$</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>        
+            <!-- # admin-Res-Add-calc panel  -->
+
+
+
+
+            <!-- admin-res-extr-audio panel  -->
+            <section v-if="admin_panel=='admin-res-extr-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>صوت ورودی</th>                                            
+                                                    <th>متن خروجی</th>
+                                                    <th>آیپی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td>${ req[4]["result"]["url"]["secret text"] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                    <td>${ req[5] }$</td>
+
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td>منتظر</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>        
+            <!-- # admin-res-extr-audio panel  -->
+
+
+
+            <!--  admin-res-steg-audio panel  -->
+            <section v-if="admin_panel=='admin-res-steg-audio'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>متن ورودی</th>                                            
+                                                    <th>صوت ورودی</th>                                            
+                                                    <th>صوت خروجی</th>
+                                                    <th>آیپی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td> <a :href="req[4]['result']['url']" target="_blank">پخش</a> </td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
+                                                    <td>منتظر</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>        
+            <!-- # admin-res-steg-audio panel  -->
+
+
+            <!-- admin-res-extr-steg-img panel  -->
+            <section v-if="admin_panel=='admin-res-extr-steg-img'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عکس ورودی</th>                                            
+                                                    <th>متن خروجی</th>
+                                                    <th>آیپی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>${ req[4]["result"]["extracted text"] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>منتظر</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>         
+            <!-- # admin-res-extr-steg-img panel  -->
+
+
+
+            <!-- admin-res-steg-img panel  -->
+            <section v-if="admin_panel=='admin-res-steg-img'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>شناسه درخواست</th>
+                                                    <th>وضعیت</th>
+                                                    <th>متن</th>
+                                                    <th>عکس ورودی</th>
+                                                    <th>عکس خروجی</th>
+                                                    <th>آیپی</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="req in res_done">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-green">انجام شده</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td> <a :href="req[4]['result']['url']" target="_blank">نمایش</a> </td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_processing">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[6] }$</td>
+                                                    <td><span class="label bg-blue">در حال انجام</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>در حال پردازش</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+        
+                                                <tr v-for="req in res_queue">
+                                                    <td>${ req[0] }$</td>
+                                                    <td>${ req[5] }$</td>
+                                                    <td><span class="label bg-orange">در صف</span></td>
+                                                    <td>${ req[3]["text"] }$</td>
+                                                    <td> <a :href="req[3]['url']" target="_blank">نمایش</a> </td>
+                                                    <td>منتظر</td>
+                                                    <td>${ req[5] }$</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# Task Info -->
+                    </div>
+                </div>
+            </section>        
+            <!-- # admin-res-steg-img panel  -->   
+            
+            
+
+
+            <!-- admin show all users -->
+
+            <section v-if="admin_panel=='admin-users-info'" class="content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <!-- Task Info -->
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>نتایج </h2>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
+                                                <tr>
+                                                    <th>آیدی کاربر</th>
+                                                    <th>نام کاربری</th>
+                                                    <th>ایمیل</th>
+                                                    <th>وضعیت حساب</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="user in users_info">
+                                                    
+                                                    <td>${ user[0] }$</td>
+                                                    <td>${ user[1] }$</td>
+                                                    <td>${ user[2] }$</td>
+                                                    <td>${ user[3] }$</td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>        
+
+
+            <!-- # admin show all users -->
+
+
+
+
+
+
+        </section>
+    <!-- # Else Sign-in and Sign-up -->        
+
+
+
+
+
+<!---------------------------------- # End Admin Panel  ---------------------------------------->
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    <!-- Waves Effect Plugin Js -->
+    <script src="../static/scripts/waves.js"></script>
+
+    <!-- Alerts -->
+    <script type="text/javascript" src="../static/scripts/sweetalert2.all.min.js"></script>
+
+    <!-- Custom -->
+    <script type="text/javascript" src="../static/scripts/vue.global.js"></script>
+    <script type="text/javascript" src="../static/scripts/axios.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/app.js"></script>
+
+    <!-- Dashboard panel -->
+    <!-- Jquery Core Js -->
+    <script src="../static/scripts/jquery.min.js"></script>    
+    <!-- Custom Js -->
+    <script src="../static/scripts/admin.js"></script>
+
+
+
+</body>
+</html>

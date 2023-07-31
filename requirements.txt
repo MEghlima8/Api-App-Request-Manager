@@ -1,0 +1,9 @@
+PyJWT
+pika
+python-dotenv
+python-Levenshtein
+psycopg2
+stegano
+requests
+scipy
+pydub
