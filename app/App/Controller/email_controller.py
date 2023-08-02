@@ -33,10 +33,9 @@ class Email:
     def send_confirmation_link_multiThread(self, email, username, s_link_key ):
         domain_address = config.configs['DOMAIN_ADDRESS']
         port = config.configs['PORT']
-        request_protocol = config.configs['REQUEST_PROTOCOL']
         system_name = config.configs['SYSTEM_NAME']
         # The link to which the confirmation request will be emailed
-        s_link = '%s://%s:%s/confirm?link=%s' % (request_protocol, domain_address, port, s_link_key)
+        s_link = '%s:%s/confirm?link=%s' % (domain_address, port, s_link_key)
         
         msg = MIMEMultipart('alternative')
         msg['Subject'] = self.email_subject

@@ -105,12 +105,11 @@ def save_image_from_api(image_url):
     output_path = '.' + config.configs["UPLOAD_IMAGE_AFTER_HIDE"] + img_name
     img_steg_new_req_img.save(output_path)
     
-    req_protocol = config.configs['REQUEST_PROTOCOL']
     dom_address = config.configs['DOMAIN_ADDRESS']
     upload_image_after_hide = config.configs['UPLOAD_IMAGE_AFTER_HIDE']
     port = config.configs['PORT']
     
-    res = {"result":{"url":f'{req_protocol}://{dom_address}:{port}{upload_image_after_hide}{img_name}'}}
+    res = {"result":{"url":f'{dom_address}:{port}{upload_image_after_hide}{img_name}'}}
     return json.dumps(res)
 
 # Saves the audio taken from the API request
@@ -128,12 +127,11 @@ def save_audio_from_api(audio_url):
     # Save Audio
     audio.export(wav_output_path , format='wav')
 
-    req_protocol = config.configs['REQUEST_PROTOCOL']
     dom_address = config.configs['DOMAIN_ADDRESS']
     port = config.configs['PORT']
     upload_audio_after_hide = config.configs['UPLOAD_SOUND_AFTER_HIDE']
     
-    res = {"result":{"url":f'{req_protocol}://{dom_address}:{port}{upload_audio_after_hide}{audio_name}'}}
+    res = {"result":{"url":f'{dom_address}:{port}{upload_audio_after_hide}{audio_name}'}}
     return json.dumps(res)
 
 

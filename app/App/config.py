@@ -6,7 +6,6 @@ configs = {
     
     'SYSTEM_NAME' : os.getenv('SYSTEM_NAME') , 
     'DOMAIN_ADDRESS' : os.getenv('DOMAIN_ADDRESS') ,
-    'REQUEST_PROTOCOL' : os.getenv('REQUEST_PROTOCOL') , 
     
     'TARGET_API_URL' : os.getenv('TARGET_API_URL') ,
     
