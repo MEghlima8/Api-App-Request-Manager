@@ -11,7 +11,6 @@ class Api:
     def __init__(self):
         self.target_api_url = config.configs["TARGET_API_URL"]
         self.dom_address = config.configs['DOMAIN_ADDRESS']
-        self.port = config.configs['PORT']
         self.headers = { 'Content-Type': 'application/json','Authorization': ''}
 
     def get_new_access_token(self):
@@ -77,7 +76,7 @@ class Api:
         target_api_url = self.target_api_url + '/hide-text-in-image'
         payload = json.dumps({
         "params": {
-            "url": f'{self.dom_address}:{self.port}{url}',
+            "url": f'{self.dom_address}{url}',
             "text": text
             }
         })
@@ -91,7 +90,7 @@ class Api:
         target_api_url = self.target_api_url + '/hide-text-in-sound'
         payload = json.dumps({
         "params": {
-            "url": f'{self.dom_address}:{self.port}{url}',
+            "url": f'{self.dom_address}{url}',
             "text": text
             }
         })
@@ -104,7 +103,7 @@ class Api:
         target_api_url = self.target_api_url + '/get-hidden-text-from-sound'
         payload = json.dumps({
         "params": {
-            "url": f'{self.dom_address}:{self.port}{url}'
+            "url": f'{self.dom_address}{url}'
             }
         })
         if self.headers['Authorization'] == '':
@@ -116,7 +115,7 @@ class Api:
         target_api_url = self.target_api_url + '/get-hidden-text-from-image'
         payload = json.dumps({
         "params": {
-            "url": f'{self.dom_address}:{self.port}{url}'
+            "url": f'{self.dom_address}{url}'
             }
         })
         if self.headers['Authorization'] == '':

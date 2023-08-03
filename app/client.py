@@ -16,8 +16,7 @@ def add_argument_parser():
         ['--confirm_link', 'confirm link'],
         ['--email', 'your email'],
         ['--size', 'requests size'],
-        ['--host', 'host'],
-        ['--port', 'port'],
+        ['--address', 'Domain Address'],
         ['--url', 'your image url'],
         ['--text', 'your text to hide in image '],
         ['--path', 'Your image path '],
@@ -34,8 +33,8 @@ def send_request(url, data, headers):
     print(response.text)
 
 
-def send_multiple_requests(data, size, route, host, port, headers=None):
-    url = 'http://%s:%s/%s' % (host, port, route)
+def send_multiple_requests(data, size, route, address, headers=None):
+    url = '%s/%s' % (address, route)
     
     for _ in range(size):
         t = threading.Thread(target=send_request, args=(url, data, headers))
@@ -43,123 +42,118 @@ def send_multiple_requests(data, size, route, host, port, headers=None):
 
 
 # add
-def add_two_numbers_route(req_size,host,port):
+def add_two_numbers_route(req_size,address):
     args = parser.parse_args()
     data = {"params":{"num1": int(args.num1), "num2": int(args.num2)}} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'add-two-numbers', host, port, headers)
+    send_multiple_requests(data, req_size, 'add-two-numbers', address, headers)
     
         
 # get result    
-def get_result_route(req_size, host,port):
+def get_result_route(req_size, address):
     args = parser.parse_args()
     data = {"request_id":args.reqid}
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'get-result', host, port, headers)
+    send_multiple_requests(data, req_size, 'get-result', address, headers)
     
 # sign in
-def signin_route(req_size, host, port):
+def signin_route(req_size, address):
     args = parser.parse_args()
     data = {"username": args.username,"password": args.password}
-    send_multiple_requests(data, req_size, 'signin', host, port) 
+    send_multiple_requests(data, req_size, 'signin', address) 
 
 # confirm link
-def confirm_route(req_size, host, port):
+def confirm_route(req_size, address):
     args = parser.parse_args()
     data = {"confirm_link": args.confirm_link}
-    send_multiple_requests(data, req_size, 'confirm', host, port)
+    send_multiple_requests(data, req_size, 'confirm', address)
 
 # sign up
-def signup_route(req_size, host, port):
+def signup_route(req_size, address):
     args = parser.parse_args()
     data = {"username": args.username,"password": args.password,"email": args.email}
-    send_multiple_requests(data, req_size, 'signup', host, port)
+    send_multiple_requests(data, req_size, 'signup', address)
 
 # hide text
-def hide_text(req_size, host, port):
+def hide_text(req_size, address):
     args = parser.parse_args()
     data = {"params":{"url": args.url, "path":args.path , "text": args.text}} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'hide-text-in-image', host, port, headers)    
+    send_multiple_requests(data, req_size, 'hide-text-in-image', address, headers)    
 
 # get text
-def get_text(req_size, host, port):
+def get_text(req_size, address):
     args = parser.parse_args()
     data = {"params":{"url": args.url , "path":args.path}} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'get-hidden-text-from-image', host, port, headers)    
+    send_multiple_requests(data, req_size, 'get-hidden-text-from-image', address, headers)    
     
 # hide text message in sound
-def hide_in_sound(req_size, host, port):
+def hide_in_sound(req_size, address):
     args = parser.parse_args()
     data = {"params":{"url": args.url , "path":args.path , "text": args.text}} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'hide-text-in-sound', host, port, headers)    
+    send_multiple_requests(data, req_size, 'hide-text-in-sound', address, headers)    
 
 
 # get text message from sound
-def get_from_sound(req_size, host, port):
+def get_from_sound(req_size, address):
     args = parser.parse_args()
     data = {"params":{"url": args.url , "path":args.path}} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'get-hidden-text-from-sound', host, port, headers)    
+    send_multiple_requests(data, req_size, 'get-hidden-text-from-sound', address, headers)    
     
     
 # get size
-def get_size(req_size, host, port):
+def get_size(req_size, address):
     args = parser.parse_args()
     data = {} 
     headers = {'Authorization': args.token}
-    send_multiple_requests(data, req_size, 'get-size', host, port, headers)    
+    send_multiple_requests(data, req_size, 'get-size', address, headers)    
     
     
 def main():
     add_argument_parser()
     
-    host = parser.parse_args().host
-    port = parser.parse_args().port
+    address = parser.parse_args().address
     route = parser.parse_args().route
     try:
         req_size = int(parser.parse_args().size)
     except:
         req_size = 1
         
-    if host is None:
-        host = 'localhost'
-    if port is None:
-        port = '5000' 
     if req_size is None or req_size < 1 :
         req_size = 1
     
     if route == 'add-two-numbers' :
-        add_two_numbers_route(req_size, host,port)
+        add_two_numbers_route(req_size, address)
         
     elif route == 'get-result' :
-        get_result_route(req_size, host, port)
+        get_result_route(req_size, address)
     
     elif route == 'signin':
-        signin_route(req_size, host, port)
+        signin_route(req_size, address)
     
     elif route == 'confirm':
-        confirm_route(req_size, host, port)
+        confirm_route(req_size, address)
         
     elif route == 'signup':
-        signup_route(req_size, host, port)
+        signup_route(req_size, address)
         
     elif route == 'hide-text-in-image':
-        hide_text(req_size, host, port)
+        hide_text(req_size, address)
     
     elif route == 'get-hidden-text-from-image':
-        get_text(req_size, host, port)
+        get_text(req_size, address)
         
     elif route == 'get-size':
-        get_size(req_size, host, port)
+        get_size(req_size, address)
         
     elif route == 'hide-text-in-sound':
-        hide_in_sound(req_size, host, port)
+        hide_in_sound(req_size, address)
         
     elif route == 'get-hidden-text-from-sound':
-        get_from_sound(req_size, host, port)
+        get_from_sound(req_size, address)
         
     else:
         print("Invalid Route")

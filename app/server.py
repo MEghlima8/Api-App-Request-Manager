@@ -107,9 +107,8 @@ def save_image_from_api(image_url):
     
     dom_address = config.configs['DOMAIN_ADDRESS']
     upload_image_after_hide = config.configs['UPLOAD_IMAGE_AFTER_HIDE']
-    port = config.configs['PORT']
     
-    res = {"result":{"url":f'{dom_address}:{port}{upload_image_after_hide}{img_name}'}}
+    res = {"result":{"url":f'{dom_address}{upload_image_after_hide}{img_name}'}}
     return json.dumps(res)
 
 # Saves the audio taken from the API request
@@ -128,10 +127,9 @@ def save_audio_from_api(audio_url):
     audio.export(wav_output_path , format='wav')
 
     dom_address = config.configs['DOMAIN_ADDRESS']
-    port = config.configs['PORT']
     upload_audio_after_hide = config.configs['UPLOAD_SOUND_AFTER_HIDE']
     
-    res = {"result":{"url":f'{dom_address}:{port}{upload_audio_after_hide}{audio_name}'}}
+    res = {"result":{"url":f'{dom_address}{upload_audio_after_hide}{audio_name}'}}
     return json.dumps(res)
 
 
@@ -536,7 +534,7 @@ def add_to_db(user_id):
 
 
 if __name__ == '__main__':
-    time.sleep(10)
+    time.sleep(20)
     t = threading.Thread(None, get_request.get_requests_from_queue, None, ())
     t.start()
     app.run(host=config.configs['HOST'], port=config.configs['PORT'] , debug=config.configs['DEBUG'])

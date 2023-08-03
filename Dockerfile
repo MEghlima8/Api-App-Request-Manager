@@ -10,4 +10,4 @@ RUN pip install -r /tmp/requirements.txt
 
 COPY ./app /app
 
-# CMD [ "python3", "server.py" ]
+CMD [ "python3", "server.py" ]
