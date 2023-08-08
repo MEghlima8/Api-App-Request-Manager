@@ -14,9 +14,6 @@ Open the ".env" file and find the variables and change its values to the desire 
     
 2. **DOMAIN_ADDRESS**
 
-3. **REQUEST_PROTOCOL**:
-    Example -> https
-
 4. **TARGET_API_URL**:
     Example -> http://172.20.0.1
 

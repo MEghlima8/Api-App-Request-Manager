@@ -94,13 +94,6 @@ class PostgreSQL:
         args = (user_id, s_req_id,)
         res = self.execute_query(query,args).fetchall()
         return res
-
-    # Check the request is in request table or not
-    def checkIsInReqTB(self, user_id, s_req_id):
-        query = "SELECT * FROM request WHERE user_id=%s AND id=%s"
-        args = (user_id, s_req_id,)
-        res = self.execute_query(query,args).fetchall()
-        return res
     
     def getUserConfirmLink(self, s_link):
         query = 'select confirm_link from users where confirm_link=%s'

@@ -71,31 +71,21 @@ def get_from_sound(info):
     url = info[3]["url"]
     res = api.get_hidden_text_from_sound(url)
     return res
-    
-    
+
 def result(s_req_id,user_id):
-    # Get request process result if there is in process table
+    # Get request process result
     res = db.db.getReqRes(user_id, s_req_id)
     
     if res == []:
-        # There is no the processed request in process table
-        
-        # Now , check is there in request table or not
-        res = db.db.checkIsInReqTB(user_id, s_req_id)
-        
-        if res == []:
-            # There is no the request in request table
-            res = {"result":"request id is wrong" , "status-code":400}
-        else:
-            res = {"result":"request is in queue" , "request_id":res[0][0] , "status-code":202}
-        return res
-    
+        # There is no the request in request table
+        res = {"result":"request id is wrong" , "status-code":400}
+                    
     elif res[0][0] is None or res[0][1] != 'done' :
         # request accepted but not processed yet 
-        res = {"result":"processing" , "request_id":s_req_id , "status-code":202}
+        res = {"result":"processing" , "request_id":res[0][0] , "status-code":202}
         return res
 
     # There is process in process db table
-    res = {"result":res[0][0]["result"] , "status-code":200 , "request_id":s_req_id}
+    res = {"result":res[0][0]["result"] , "request_id":s_req_id , "status-code":200}
     
     return res
