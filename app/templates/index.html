@@ -535,7 +535,7 @@
                                                     <td>${ req[4] }$</td>
                                                     <td><span class="label bg-green">انجام شده</span></td>
                                                     <td> <a :href="req[2]['url']" target="_blank">پخش</a> </td>
-                                                    <td>${ req[3]["result"]["url"]["secret text"] }$</td>
+                                                    <td>${ req[3]["result"]["secret text"] }$</td>
                                                 </tr>
         
                                                 <tr v-for="req in res_processing">
@@ -1222,7 +1222,7 @@
                                                     <td>${ req[6] }$</td>
                                                     <td><span class="label bg-green">انجام شده</span></td>
                                                     <td> <a :href="req[3]['url']" target="_blank">پخش</a> </td>
-                                                    <td>${ req[4]["result"]["url"]["secret text"] }$</td>
+                                                    <td>${ req[4]["result"]["secret text"] }$</td>
                                                     <td>${ req[5] }$</td>
                                                 </tr>
         

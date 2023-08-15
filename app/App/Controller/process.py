@@ -64,7 +64,7 @@ def get_text(info):
 def hide_in_sound(info):     
     text_to_hide = info[3]["text"]    
     audio_path = info[3]["url"]
-    res = api.hide_audio_in_image(text_to_hide, audio_path)
+    res = api.hide_text_in_sound(text_to_hide, audio_path)
     return res
 
 def get_from_sound(info): 

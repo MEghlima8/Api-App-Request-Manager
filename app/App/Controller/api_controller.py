@@ -86,7 +86,7 @@ class Api:
         return json.loads(response.text)
       
       
-    def hide_audio_in_image(self, text, url):
+    def hide_text_in_sound(self, text, url):
         target_api_url = self.target_api_url + '/hide-text-in-sound'
         payload = json.dumps({
         "params": {
